@@ -17,6 +17,10 @@ class ViewController: UIViewController {
     var player : AVPlayer!
     var playerLayer: AVPlayerLayer!
     
+    var currentExercise: Exercise?
+    var currentExerciseIndex: Int?
+    var maxExercises: Int?
+    
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
@@ -41,7 +45,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 6
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handlePrevious), for: .touchUpInside)
         return button
     }()
     
@@ -54,7 +58,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 6
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
     
@@ -67,7 +71,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 6
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handlePlay), for: .touchUpInside)
         return button
     }()
     
@@ -80,7 +84,7 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 6
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleStop), for: .touchUpInside)
         return button
     }()
     
@@ -95,7 +99,7 @@ class ViewController: UIViewController {
     
     let controlView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = UIColor.white
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         return view
@@ -116,7 +120,12 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.white
         exercises.append(appDelegate.ex1)
         exercises.append(appDelegate.ex2)
+        
         flag = 0
+        maxExercises = exercises.count
+        currentExerciseIndex = 0
+        currentExercise = exercises[currentExerciseIndex!]
+        
         view.addSubview(VideoPlayerView)
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let videoPlayerFrame = CGRect(x: 0, y: 120, width: view.frame.width, height: view.frame.height - 320)
@@ -134,20 +143,9 @@ class ViewController: UIViewController {
         controlView.isHidden = true
         
         VideoPlayerView.frame = videoPlayerFrame
-        //let videoPlayerView = VideoPlayerView(frame: videoPlayerFrame)
-        //videoPlayerView.urlString = appDelegate.ex1.tutorialUrl
-
         print("HI there")
+        setupPlayerWithUrl(currentExercise?.repUrl!)
         
-        let urlString = "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback.mp4?alt=media&token=aa5fea98-fc59-4dc7-b2cc-0a1e6a4c480b"
-        if let videoUrl = URL(string: urlString){
-            player = AVPlayer(url: videoUrl)
-            playerLayer = AVPlayerLayer(player: player)
-            playerLayer.videoGravity = .resize
-            VideoPlayerView.layer.addSublayer(playerLayer)
-            //playerLayer.frame = VideoPlayerView.frame
-            player.play()
-        }
         
         loginRegisterButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
         //loginRegisterButton.bottomAnchor.constraint(equalTo: VideoPlayerView.topAnchor, constant: -12).isActive = true
@@ -210,7 +208,48 @@ class ViewController: UIViewController {
     @objc func handleLoginRegister(){
         print("reg")
     }
-
-
+    
+    @objc func handlePrevious(){
+        var temp = currentExerciseIndex! - 1
+        if(temp < 0){
+            currentExerciseIndex = maxExercises! - 1
+        }else{
+            currentExerciseIndex = currentExerciseIndex! - 1
+        }
+        currentExercise = exercises[currentExerciseIndex!]
+        setupPlayerWithUrl(currentExercise?.tutorialUrl)
+        
+        print("reg")
+    }
+    
+    @objc func handlePlay(){
+        player.play()
+        print("reg")
+    }
+    
+    @objc func handleStop(){
+        player.pause()
+        
+        print("reg")
+    }
+    
+    @objc func handleNext(){
+        currentExerciseIndex = (currentExerciseIndex! + 1)%maxExercises!
+        currentExercise = exercises[currentExerciseIndex!]
+        setupPlayerWithUrl(currentExercise?.tutorialUrl!)
+        print("reg")
+    }
+    
+    fileprivate func setupPlayerWithUrl(_ urlString: String!){
+        if let videoUrl = URL(string: urlString){
+            player = AVPlayer(url: videoUrl)
+            playerLayer = AVPlayerLayer(player: player)
+            playerLayer.videoGravity = .resize
+            VideoPlayerView.layer.addSublayer(playerLayer)
+            //playerLayer.frame = VideoPlayerView.frame
+            player.play()
+        }
+        
+    }
 }
 

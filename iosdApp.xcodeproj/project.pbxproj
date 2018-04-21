@@ -15,6 +15,8 @@
 		F121CA99208B95B8004C9FC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F121CA98208B95B8004C9FC4 /* Assets.xcassets */; };
 		F121CA9C208B95B8004C9FC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F121CA9A208B95B8004C9FC4 /* LaunchScreen.storyboard */; };
 		F121CAA4208B987D004C9FC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F121CAA3208B987D004C9FC4 /* GoogleService-Info.plist */; };
+		F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA5208BA666004C9FC4 /* Exercise.swift */; };
+		F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		F121CA9B208B95B8004C9FC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F121CA9D208B95B8004C9FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F121CAA3208B987D004C9FC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F121CAA5208BA666004C9FC4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
+		F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformedExercise.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				F121CA9A208B95B8004C9FC4 /* LaunchScreen.storyboard */,
 				F121CA9D208B95B8004C9FC4 /* Info.plist */,
 				F121CA95208B95B8004C9FC4 /* iosdApp.xcdatamodeld */,
+				F121CAA5208BA666004C9FC4 /* Exercise.swift */,
+				F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */,
 			);
 			path = iosdApp;
 			sourceTree = "<group>";
@@ -231,6 +237,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F121CA97208B95B8004C9FC4 /* iosdApp.xcdatamodeld in Sources */,
+				F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */,
+				F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */,
 				F121CA91208B95B7004C9FC4 /* ViewController.swift in Sources */,
 				F121CA8F208B95B7004C9FC4 /* AppDelegate.swift in Sources */,
 			);

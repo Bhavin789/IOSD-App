@@ -15,6 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let ex1 = Exercise(name: "sqaut1", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback.mp4?alt=media&token=aa5fea98-fc59-4dc7-b2cc-0a1e6a4c480b", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1")
+    
+    let ex2 = Exercise(name: "sqaut2", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1")
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()

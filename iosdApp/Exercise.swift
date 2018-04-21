@@ -19,5 +19,4 @@ class Exercise: NSObject {
         self.tutorialUrl = tutorialUrl
         self.repUrl = repUrl
     }
-    
 }

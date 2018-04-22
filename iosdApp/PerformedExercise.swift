@@ -10,12 +10,12 @@ import Foundation
 
 class PerformedExercise: NSObject {
     
-    var exercise: Exercise?
+    var name: String?
     var repCount: Int?
     var repDone: Int?
     
-    init(exercise: Exercise!, repCount: Int!, repDone: Int!) {
-        self.exercise = exercise
+    init(name: String!, repCount: Int!, repDone: Int!) {
+        self.name = name
         self.repCount = repCount
         self.repDone = repDone
     }

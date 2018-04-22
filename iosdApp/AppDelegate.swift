@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let ex2 = Exercise(name: "sqaut2", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1")
     
-
+    let currentWorkout = Workout()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         

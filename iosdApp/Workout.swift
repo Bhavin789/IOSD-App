@@ -10,10 +10,10 @@ import Foundation
 
 class Workout: NSObject{
     var workoutNumber: Int?
-    var exercises: [Exercise]?
+    var exercises: [PerformedExercise]?
     
     override init() {
         self.workoutNumber = 1
-        
+        self.exercises = []
     }
 }

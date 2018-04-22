@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class PracticeViewController: UIViewController {
+class PracticeViewController: UIViewController{
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var flag: Int?
@@ -20,6 +20,9 @@ class PracticeViewController: UIViewController {
     var currentExerciseIndex: Int?
     var maxExercises: Int?
     var isPlayerMuted: Bool?
+    var item: AVPlayerItem?
+    var countDone: Int?
+    var time: CMTime?
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -133,19 +136,15 @@ class PracticeViewController: UIViewController {
         view.backgroundColor = UIColor.white
         self.navigationController?.isNavigationBarHidden = true
         
-        if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
-            UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
-        }else{
-            UserDefaults.standard.set(1, forKey: "currentWorkoutNumber")
-        }
-        
         flag = 0
         isPlayerMuted = false
         currentExerciseIndex = 0
+        countDone = 0
         
         view.addSubview(VideoPlayerView)
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let videoPlayerFrame = CGRect(x: 0, y: 120, width: view.frame.width, height: view.frame.height - 320)
+        
         
         view.addSubview(loginRegisterButton)
         view.addSubview(controlView)
@@ -163,6 +162,10 @@ class PracticeViewController: UIViewController {
         VideoPlayerView.frame = videoPlayerFrame
         print("HI there")
         setupPlayerWithUrl(currentExercise?.repUrl!)
+        
+        item = player.currentItem
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleRepeat), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: item)
         
         
         loginRegisterButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
@@ -262,7 +265,7 @@ class PracticeViewController: UIViewController {
     }
     
     @objc func handleNext(){
-        
+        showAlert("Do you want to perform more exercises and save the current or finish and save the workout")
         
     }
     
@@ -288,5 +291,36 @@ class PracticeViewController: UIViewController {
             player.play()
         }
         
+    }
+    
+    @objc func handlePerform(action: UIAlertAction){
+        print("perform")
+        self.navigationController?.popToRootViewController(animated: true)
+        
+    }
+    
+    @objc func handleSaveWorkout(action: UIAlertAction){
+        print("save")
+    }
+    
+    @objc func handleRepeat(note: NSNotification){
+        print("fired")
+        countDone = countDone! + 1
+        if(countDone == currentRepCount){
+            showAlert("Do you want to perform more exercises and save the current or finish and save the complete workout")
+            
+        }else{
+            time = CMTimeMake(0, 10)
+            player.seek(to: time!)
+            player.play()
+        }
+    }
+    
+    func showAlert(_ msg: String){
+        let alert = UIAlertController(title: "Workout", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Perform", style: .default, handler: handlePerform))
+        alert.addAction(UIAlertAction(title: "Save Workout", style: .default, handler: handleSaveWorkout))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }

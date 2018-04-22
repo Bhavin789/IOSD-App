@@ -18,6 +18,8 @@
 		F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA5208BA666004C9FC4 /* Exercise.swift */; };
 		F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */; };
 		F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */; };
+		F121CAAC208C55E7004C9FC4 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */; };
+		F121CAAE208C62AA004C9FC4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAAD208C62AA004C9FC4 /* Workout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		F121CAA5208BA666004C9FC4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformedExercise.swift; sourceTree = "<group>"; };
 		F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepCountViewController.swift; sourceTree = "<group>"; };
+		F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
+		F121CAAD208C62AA004C9FC4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 				F121CAA5208BA666004C9FC4 /* Exercise.swift */,
 				F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */,
 				F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */,
+				F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */,
+				F121CAAD208C62AA004C9FC4 /* Workout.swift */,
 			);
 			path = iosdApp;
 			sourceTree = "<group>";
@@ -242,6 +248,8 @@
 				F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */,
 				F121CA97208B95B8004C9FC4 /* iosdApp.xcdatamodeld in Sources */,
 				F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */,
+				F121CAAE208C62AA004C9FC4 /* Workout.swift in Sources */,
+				F121CAAC208C55E7004C9FC4 /* PracticeViewController.swift in Sources */,
 				F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */,
 				F121CA91208B95B7004C9FC4 /* ViewController.swift in Sources */,
 				F121CA8F208B95B7004C9FC4 /* AppDelegate.swift in Sources */,

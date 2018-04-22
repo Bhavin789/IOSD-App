@@ -1,22 +1,21 @@
 //
-//  ViewController.swift
+//  PracticeViewController.swift
 //  iosdApp
 //
-//  Created by Bhavin on 21/04/18.
+//  Created by Bhavin on 22/04/18.
 //  Copyright © 2018 Bhavin. All rights reserved.
 //
 
 import UIKit
-import AVFoundation
+import AVKit
 
-class ViewController: UIViewController {
-    
+class PracticeViewController: UIViewController {
+
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var flag: Int?
-    var exercises = [Exercise]()
     var player : AVPlayer!
     var playerLayer: AVPlayerLayer!
-    
+    var currentRepCount: Int?
     var currentExercise: Exercise?
     var currentExerciseIndex: Int?
     var maxExercises: Int?
@@ -132,8 +131,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        exercises.append(appDelegate.ex1)
-        exercises.append(appDelegate.ex2)
+        self.navigationController?.isNavigationBarHidden = true
         
         if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
             UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
@@ -143,9 +141,7 @@ class ViewController: UIViewController {
         
         flag = 0
         isPlayerMuted = false
-        maxExercises = exercises.count
         currentExerciseIndex = 0
-        currentExercise = exercises[currentExerciseIndex!]
         
         view.addSubview(VideoPlayerView)
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -211,7 +207,7 @@ class ViewController: UIViewController {
         
         // Do any additional setup after loading the view, typically from a nib.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -250,22 +246,7 @@ class ViewController: UIViewController {
     }
     
     @objc func handlePrevious(){
-        playerLayer.removeFromSuperlayer()
-        playerLayer = nil
-        player = nil
-        
-        player = AVPlayer()
-        playerLayer = AVPlayerLayer()
-        
-        var temp = currentExerciseIndex! - 1
-        if(temp < 0){
-            currentExerciseIndex = maxExercises! - 1
-        }else{
-            currentExerciseIndex = currentExerciseIndex! - 1
-        }
-        currentExercise = exercises[currentExerciseIndex!]
-        print(currentExercise?.name)
-        setupPlayerWithUrl(currentExercise?.tutorialUrl)
+
         
         print("reg")
     }
@@ -281,18 +262,7 @@ class ViewController: UIViewController {
     }
     
     @objc func handleNext(){
-        player.pause()
-        playerLayer.removeFromSuperlayer()
-        playerLayer = nil
-        player = nil
         
-        player = AVPlayer()
-        playerLayer = AVPlayerLayer()
-        
-        currentExerciseIndex = (currentExerciseIndex! + 1)%maxExercises!
-        currentExercise = exercises[currentExerciseIndex!]
-        print(currentExercise?.name)
-        setupPlayerWithUrl(currentExercise?.tutorialUrl!)
         
     }
     
@@ -320,4 +290,3 @@ class ViewController: UIViewController {
         
     }
 }
-

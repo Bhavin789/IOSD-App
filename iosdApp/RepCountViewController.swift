@@ -10,7 +10,8 @@ import UIKit
 
 class RepCountViewController: UIViewController, UITextFieldDelegate {
     
-    var count: String?
+    var count: String!
+    var countInt: Int!
     var currentExercise: Exercise?
     
     let repCountLabel: UILabel = {
@@ -38,6 +39,9 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(repCountLabel)
         view.addSubview(countField)
         
+        count = ""
+        countInt = 0
+        
         print(currentExercise?.name)
         
         countField.delegate = self
@@ -59,6 +63,14 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
     
     @objc func handleNext(){
         print("next")
+        let practiceViewController = PracticeViewController()
+        practiceViewController.currentExercise = currentExercise!
+        if let countInt = Int(count){
+            practiceViewController.currentRepCount = countInt
+        }else{
+            practiceViewController.currentRepCount = 0
+        }
+        navigationController?.pushViewController(practiceViewController, animated: true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -28,7 +28,7 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
     let countField: UITextField = {
         let txtField = UITextField()
         
-        txtField.placeholder = "Enter here ...."
+        txtField.placeholder = "0"
         txtField.translatesAutoresizingMaskIntoConstraints = false
         
         return txtField
@@ -65,7 +65,7 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
         countField.topAnchor.constraint(equalTo: repCountLabel.bottomAnchor, constant: 10).isActive = true
         countField.heightAnchor.constraint(equalToConstant: 100).isActive = true
         countField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        countField.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        countField.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
         // Do any additional setup after loading the view.
     }

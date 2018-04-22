@@ -119,7 +119,7 @@ class PracticeViewController: UIViewController{
     let repCountLabel: UILabel = {
         let lbl = UILabel()
         lbl.text = ""
-        lbl.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         lbl.textColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
@@ -233,16 +233,8 @@ class PracticeViewController: UIViewController{
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
-        print("tapped")
-        if(flag == 0){
-            player.pause()
-            controlView.isHidden = false
-            flag = 1
-        }else{
-            player.play()
-            controlView.isHidden = true
-            flag = 0
-        }
+        player.pause()
+        controlView.isHidden = false
     }
     
     @objc func handlePrevious(){
@@ -255,6 +247,7 @@ class PracticeViewController: UIViewController{
     
     @objc func handlePlay(){
         player.play()
+        controlView.isHidden = true
         print("reg")
     }
     
@@ -331,10 +324,10 @@ class PracticeViewController: UIViewController{
         playerLayer.removeFromSuperlayer()
         playerLayer = nil
         player = nil
-        
         //dismiss(animated: true, completion: nil)
         let saveViewController = LogWorkoutViewController()
-        present(saveViewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(saveViewController, animated: true)
+        //present(saveViewController, animated: true, completion: nil)
         //dismiss(animated: true, completion: nil)
         print("Handle yes")
     }

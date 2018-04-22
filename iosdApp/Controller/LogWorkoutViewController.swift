@@ -83,6 +83,8 @@ class LogWorkoutViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
+        
         view.backgroundColor = .white
         view.addSubview(nameLabel)
         view.addSubview(repsLabel)

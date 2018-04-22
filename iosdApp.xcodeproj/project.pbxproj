@@ -23,6 +23,7 @@
 		F121CAB0208C8A0E004C9FC4 /* ExerciseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAAF208C8A0E004C9FC4 /* ExerciseLogViewController.swift */; };
 		F121CAB5208C9A5D004C9FC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */; };
 		F121CAB7208C9E31004C9FC4 /* LogWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */; };
+		F121CAB9208D5301004C9FC4 /* NoSavedWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB8208D5301004C9FC4 /* NoSavedWorkoutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		F121CAAF208C8A0E004C9FC4 /* ExerciseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogViewController.swift; sourceTree = "<group>"; };
 		F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutViewController.swift; sourceTree = "<group>"; };
+		F121CAB8208D5301004C9FC4 /* NoSavedWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSavedWorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				F121CAAF208C8A0E004C9FC4 /* ExerciseLogViewController.swift */,
 				F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */,
 				F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */,
+				F121CAB8208D5301004C9FC4 /* NoSavedWorkoutViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 				F121CAAE208C62AA004C9FC4 /* Workout.swift in Sources */,
 				F121CAB0208C8A0E004C9FC4 /* ExerciseLogViewController.swift in Sources */,
 				F121CAAC208C55E7004C9FC4 /* PracticeViewController.swift in Sources */,
+				F121CAB9208D5301004C9FC4 /* NoSavedWorkoutViewController.swift in Sources */,
 				F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */,
 				F121CA91208B95B7004C9FC4 /* ViewController.swift in Sources */,
 				F121CA8F208B95B7004C9FC4 /* AppDelegate.swift in Sources */,

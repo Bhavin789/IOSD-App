@@ -143,6 +143,15 @@ class ViewController: UIViewController {
         
     }()
     
+    let nameLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = ""
+        lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        lbl.textColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -151,6 +160,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("called view did load")
         
         view.backgroundColor = UIColor.white
         exercises.append(appDelegate.ex1)
@@ -169,6 +179,7 @@ class ViewController: UIViewController {
         maxExercises = exercises.count
         currentExerciseIndex = 0
         currentExercise = exercises[currentExerciseIndex!]
+        nameLabel.text = currentExercise?.name!
         
         view.addSubview(VideoPlayerView)
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -178,6 +189,7 @@ class ViewController: UIViewController {
         view.addSubview(controlView)
         view.addSubview(muteButton)
         view.addSubview(doneButton)
+        view.addSubview(nameLabel)
         view.addGestureRecognizer(tapped)
         view.isUserInteractionEnabled = true
         
@@ -236,8 +248,10 @@ class ViewController: UIViewController {
         muteButton.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
         muteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        
-        
+        nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
+        nameLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+        nameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -252,16 +266,8 @@ class ViewController: UIViewController {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
-        print("tapped")
-        if(flag == 0){
-            player.pause()
-            controlView.isHidden = false
-            flag = 1
-        }else{
-            player.play()
-            controlView.isHidden = true
-            flag = 0
-        }
+        player.pause()
+        controlView.isHidden = false
     }
     
     @objc func handleLoginRegister(){
@@ -292,6 +298,7 @@ class ViewController: UIViewController {
             currentExerciseIndex = currentExerciseIndex! - 1
         }
         currentExercise = exercises[currentExerciseIndex!]
+        nameLabel.text = currentExercise?.name!
         print(currentExercise?.name)
         setupPlayerWithUrl(currentExercise?.tutorialUrl)
         
@@ -300,6 +307,7 @@ class ViewController: UIViewController {
     
     @objc func handlePlay(){
         player.play()
+        controlView.isHidden = true
         print("reg")
     }
     
@@ -315,18 +323,7 @@ class ViewController: UIViewController {
     
     @objc func handleNext(){
         player.pause()
-        playerLayer.removeFromSuperlayer()
-        playerLayer = nil
-        player = nil
-        
-        player = AVPlayer()
-        playerLayer = AVPlayerLayer()
-        
-        currentExerciseIndex = (currentExerciseIndex! + 1)%maxExercises!
-        currentExercise = exercises[currentExerciseIndex!]
-        print(currentExercise?.name)
-        setupPlayerWithUrl(currentExercise?.tutorialUrl!)
-        
+        showAlertForNext("Do you want to skip this video? Your workout would not be complete without if you skip this video")
     }
     
     @objc func handleMute(){
@@ -358,15 +355,33 @@ class ViewController: UIViewController {
     }
     @objc func handleYes(action: UIAlertAction){
         player.pause()
+        //dismiss(animated: true, completion: nil)
+        playerLayer.removeFromSuperlayer()
+        playerLayer = nil
+        player = nil
+        let saveViewController = LogWorkoutViewController()
+        self.navigationController?.pushViewController(saveViewController, animated: true)
+        //present(saveViewController, animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        print("Handle yes")
+        
+    }
+    
+    @objc func handleNextPlay(action: UIAlertAction){
+        
+        player.pause()
         playerLayer.removeFromSuperlayer()
         playerLayer = nil
         player = nil
         
-        //dismiss(animated: true, completion: nil)
-        let saveViewController = LogWorkoutViewController()
-        present(saveViewController, animated: true, completion: nil)
-        //dismiss(animated: true, completion: nil)
-        print("Handle yes")
+        player = AVPlayer()
+        playerLayer = AVPlayerLayer()
+        
+        currentExerciseIndex = (currentExerciseIndex! + 1)%maxExercises!
+        currentExercise = exercises[currentExerciseIndex!]
+        print(currentExercise?.name)
+        nameLabel.text = currentExercise?.name!
+        setupPlayerWithUrl(currentExercise?.tutorialUrl!)
         
     }
     
@@ -374,6 +389,14 @@ class ViewController: UIViewController {
     func showAlertForStop(_ msg: String){
         let alert = UIAlertController(title: "Workout", message: msg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: handleYes))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertForNext(_ msg: String){
+        let alert = UIAlertController(title: "Workout", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: handleNextPlay))
         alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)

@@ -24,21 +24,6 @@ class PracticeViewController: UIViewController{
     var countDone: Int?
     var time: CMTime?
     
-    let loginRegisterButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
-        button.setTitle("Skip", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 6
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.restorationIdentifier="loginbutton"
-        
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
-        return button
-    }()
-    
     let prevButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
@@ -131,6 +116,15 @@ class PracticeViewController: UIViewController{
         
     }()
     
+    let repCountLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = ""
+        lbl.font = UIFont.systemFont(ofSize: 30, weight: .medium)
+        lbl.textColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -144,12 +138,10 @@ class PracticeViewController: UIViewController{
         view.addSubview(VideoPlayerView)
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let videoPlayerFrame = CGRect(x: 0, y: 120, width: view.frame.width, height: view.frame.height - 320)
-        
-        
-        view.addSubview(loginRegisterButton)
         view.addSubview(controlView)
         view.addSubview(muteButton)
         view.addGestureRecognizer(tapped)
+        view.addSubview(repCountLabel)
         view.isUserInteractionEnabled = true
         
         controlView.addSubview(playButton)
@@ -166,13 +158,7 @@ class PracticeViewController: UIViewController{
         item = player.currentItem
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleRepeat), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: item)
-        
-        
-        loginRegisterButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-        //loginRegisterButton.bottomAnchor.constraint(equalTo: VideoPlayerView.topAnchor, constant: -12).isActive = true
-        loginRegisterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 170).isActive = true
-        loginRegisterButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
-        loginRegisterButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+
         
         controlView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         controlView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -206,8 +192,14 @@ class PracticeViewController: UIViewController{
         muteButton.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
         muteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
+        repCountLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        repCountLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 380).isActive = true
+        repCountLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
+        repCountLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
+        print("current rep count \(currentRepCount!)")
         
+        repCountLabel.text = "\(countDone!)/\(currentRepCount!)"
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -234,20 +226,6 @@ class PracticeViewController: UIViewController{
         }
     }
     
-    @objc func handleLoginRegister(){
-        
-        print("reg")
-        player.pause()
-        playerLayer.removeFromSuperlayer()
-        playerLayer = nil
-        player = nil
-        
-        let countViewController = RepCountViewController()
-        countViewController.currentExercise = currentExercise!
-        let viewController = UINavigationController(rootViewController: countViewController)
-        present(viewController, animated: true, completion: nil)
-    }
-    
     @objc func handlePrevious(){
 
         
@@ -272,9 +250,11 @@ class PracticeViewController: UIViewController{
     @objc func handleMute(){
         if isPlayerMuted!{
             player.isMuted = false
+            muteButton.setTitle("Mute", for: .normal)
             isPlayerMuted = !isPlayerMuted!
         }else{
             player.isMuted = true
+            muteButton.setTitle("Unmute", for: .normal)
             isPlayerMuted = !isPlayerMuted!
         }
     }
@@ -295,8 +275,11 @@ class PracticeViewController: UIViewController{
     
     @objc func handlePerform(action: UIAlertAction){
         print("perform")
+        let logViewController = ExerciseLogViewController()
+        logViewController.name = currentExercise?.name!
+        logViewController.count = countDone!
+        present(logViewController, animated: true, completion: nil)
         self.navigationController?.popToRootViewController(animated: true)
-        
     }
     
     @objc func handleSaveWorkout(action: UIAlertAction){
@@ -306,12 +289,17 @@ class PracticeViewController: UIViewController{
     @objc func handleRepeat(note: NSNotification){
         print("fired")
         countDone = countDone! + 1
+        repCountLabel.text = "\(countDone!)/\(currentRepCount!)"
         if(countDone == currentRepCount){
+            playerLayer.removeFromSuperlayer()
+            playerLayer = nil
+            player = nil
             showAlert("Do you want to perform more exercises and save the current or finish and save the complete workout")
             
         }else{
             time = CMTimeMake(0, 10)
             player.seek(to: time!)
+            repCountLabel.text = "\(countDone!)/\(currentRepCount!)"
             player.play()
         }
     }

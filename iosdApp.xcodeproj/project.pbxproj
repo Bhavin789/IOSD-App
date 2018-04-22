@@ -20,6 +20,9 @@
 		F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */; };
 		F121CAAC208C55E7004C9FC4 /* PracticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */; };
 		F121CAAE208C62AA004C9FC4 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAAD208C62AA004C9FC4 /* Workout.swift */; };
+		F121CAB0208C8A0E004C9FC4 /* ExerciseLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAAF208C8A0E004C9FC4 /* ExerciseLogViewController.swift */; };
+		F121CAB5208C9A5D004C9FC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */; };
+		F121CAB7208C9E31004C9FC4 /* LogWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepCountViewController.swift; sourceTree = "<group>"; };
 		F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeViewController.swift; sourceTree = "<group>"; };
 		F121CAAD208C62AA004C9FC4 /* Workout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		F121CAAF208C8A0E004C9FC4 /* ExerciseLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseLogViewController.swift; sourceTree = "<group>"; };
+		F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,21 +98,40 @@
 		F121CA8D208B95B7004C9FC4 /* iosdApp */ = {
 			isa = PBXGroup;
 			children = (
+				F121CAB3208C90CC004C9FC4 /* Model */,
+				F121CAB1208C908A004C9FC4 /* Controller */,
 				F121CA8E208B95B7004C9FC4 /* AppDelegate.swift */,
-				F121CA90208B95B7004C9FC4 /* ViewController.swift */,
 				F121CAA3208B987D004C9FC4 /* GoogleService-Info.plist */,
 				F121CA92208B95B8004C9FC4 /* Main.storyboard */,
 				F121CA98208B95B8004C9FC4 /* Assets.xcassets */,
 				F121CA9A208B95B8004C9FC4 /* LaunchScreen.storyboard */,
 				F121CA9D208B95B8004C9FC4 /* Info.plist */,
 				F121CA95208B95B8004C9FC4 /* iosdApp.xcdatamodeld */,
-				F121CAA5208BA666004C9FC4 /* Exercise.swift */,
-				F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */,
-				F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */,
-				F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */,
-				F121CAAD208C62AA004C9FC4 /* Workout.swift */,
 			);
 			path = iosdApp;
+			sourceTree = "<group>";
+		};
+		F121CAB1208C908A004C9FC4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F121CA90208B95B7004C9FC4 /* ViewController.swift */,
+				F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */,
+				F121CAAB208C55E7004C9FC4 /* PracticeViewController.swift */,
+				F121CAAF208C8A0E004C9FC4 /* ExerciseLogViewController.swift */,
+				F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */,
+				F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F121CAB3208C90CC004C9FC4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F121CAA5208BA666004C9FC4 /* Exercise.swift */,
+				F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */,
+				F121CAAD208C62AA004C9FC4 /* Workout.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,13 +271,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */,
+				F121CAB7208C9E31004C9FC4 /* LogWorkoutViewController.swift in Sources */,
 				F121CA97208B95B8004C9FC4 /* iosdApp.xcdatamodeld in Sources */,
 				F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */,
 				F121CAAE208C62AA004C9FC4 /* Workout.swift in Sources */,
+				F121CAB0208C8A0E004C9FC4 /* ExerciseLogViewController.swift in Sources */,
 				F121CAAC208C55E7004C9FC4 /* PracticeViewController.swift in Sources */,
 				F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */,
 				F121CA91208B95B7004C9FC4 /* ViewController.swift in Sources */,
 				F121CA8F208B95B7004C9FC4 /* AppDelegate.swift in Sources */,
+				F121CAB5208C9A5D004C9FC4 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
     var count: String!
     var countInt: Int!
     var currentExercise: Exercise?
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let repCountLabel: UILabel = {
         let lbl = UILabel()
@@ -32,12 +33,19 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
         
         return txtField
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(appDelegate.currentWorkout.exercises?.count)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         view.addSubview(repCountLabel)
         view.addSubview(countField)
+        
+        self.navigationController?.isNavigationBarHidden = false
         
         count = ""
         countInt = 0
@@ -76,13 +84,14 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         count = countField.text
-        print(count)
+        print("The count after return is \(count)")
         return true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         count = countField.text
+        print("The count after touches is \(count)")
         print(count)
     }
 

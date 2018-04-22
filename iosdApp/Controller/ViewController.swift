@@ -131,9 +131,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         view.backgroundColor = UIColor.white
         exercises.append(appDelegate.ex1)
         exercises.append(appDelegate.ex2)
+        
+        self.navigationController?.isNavigationBarHidden = true
         
         if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
             UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
@@ -245,8 +249,8 @@ class ViewController: UIViewController {
         
         let countViewController = RepCountViewController()
         countViewController.currentExercise = currentExercise!
-        let viewController = UINavigationController(rootViewController: countViewController)
-        present(viewController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(countViewController, animated: true)
+        
     }
     
     @objc func handlePrevious(){
@@ -277,6 +281,7 @@ class ViewController: UIViewController {
     
     @objc func handleStop(){
         player.pause()
+        showAlertForStop("Do you want to finish this workout?")
         print("reg")
     }
     
@@ -306,6 +311,8 @@ class ViewController: UIViewController {
         }
     }
     
+
+    
     fileprivate func setupPlayerWithUrl(_ urlString: String!){
         if let videoUrl = URL(string: urlString){
             player = AVPlayer(url: videoUrl)
@@ -318,6 +325,18 @@ class ViewController: UIViewController {
             player.play()
         }
         
+    }
+    @objc func handleYes(action: UIAlertAction){
+        print("Handle yes")
+    }
+    
+    
+    func showAlertForStop(_ msg: String){
+        let alert = UIAlertController(title: "Workout", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: handleYes))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

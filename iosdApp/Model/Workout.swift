@@ -11,9 +11,13 @@ import Foundation
 class Workout: NSObject{
     var workoutNumber: Int?
     var exercises: [PerformedExercise]?
+    var name: String?
+    var comments: String?
     
     override init() {
         self.workoutNumber = 1
         self.exercises = []
+        self.name = "workout"
+        self.comments = ""
     }
 }

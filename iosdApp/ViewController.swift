@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var currentExercise: Exercise?
     var currentExerciseIndex: Int?
     var maxExercises: Int?
+    var isPlayerMuted: Bool?
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -88,6 +89,19 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let muteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.setTitle("mute", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 6
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(handleMute), for: .touchUpInside)
+        return button
+    }()
+    
     let VideoPlayerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black
@@ -122,6 +136,7 @@ class ViewController: UIViewController {
         exercises.append(appDelegate.ex2)
         
         flag = 0
+        isPlayerMuted = false
         maxExercises = exercises.count
         currentExerciseIndex = 0
         currentExercise = exercises[currentExerciseIndex!]
@@ -132,6 +147,7 @@ class ViewController: UIViewController {
         
         view.addSubview(loginRegisterButton)
         view.addSubview(controlView)
+        view.addSubview(muteButton)
         view.addGestureRecognizer(tapped)
         view.isUserInteractionEnabled = true
         
@@ -179,6 +195,14 @@ class ViewController: UIViewController {
         nextButton.rightAnchor.constraint(equalTo: controlView.rightAnchor, constant: -8).isActive = true
         nextButton.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8).isActive = true
         
+        //muteButton.topAnchor.constraint(equalTo: VideoPlayerView.bottomAnchor, constant: 10).isActive = true
+        muteButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
+        muteButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
+        muteButton.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
+        muteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -189,7 +213,7 @@ class ViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        playerLayer.frame = VideoPlayerView.bounds
+        //playerLayer.frame = VideoPlayerView.bounds
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -206,10 +230,27 @@ class ViewController: UIViewController {
     }
     
     @objc func handleLoginRegister(){
+        
         print("reg")
+        player.pause()
+        playerLayer.removeFromSuperlayer()
+        playerLayer = nil
+        player = nil
+        
+        let countViewController = RepCountViewController()
+        countViewController.currentExercise = currentExercise!
+        let viewController = UINavigationController(rootViewController: countViewController)
+        present(viewController, animated: true, completion: nil)
     }
     
     @objc func handlePrevious(){
+        playerLayer.removeFromSuperlayer()
+        playerLayer = nil
+        player = nil
+        
+        player = AVPlayer()
+        playerLayer = AVPlayerLayer()
+        
         var temp = currentExerciseIndex! - 1
         if(temp < 0){
             currentExerciseIndex = maxExercises! - 1
@@ -217,6 +258,7 @@ class ViewController: UIViewController {
             currentExerciseIndex = currentExerciseIndex! - 1
         }
         currentExercise = exercises[currentExerciseIndex!]
+        print(currentExercise?.name)
         setupPlayerWithUrl(currentExercise?.tutorialUrl)
         
         print("reg")
@@ -229,15 +271,33 @@ class ViewController: UIViewController {
     
     @objc func handleStop(){
         player.pause()
-        
         print("reg")
     }
     
     @objc func handleNext(){
+        player.pause()
+        playerLayer.removeFromSuperlayer()
+        playerLayer = nil
+        player = nil
+        
+        player = AVPlayer()
+        playerLayer = AVPlayerLayer()
+        
         currentExerciseIndex = (currentExerciseIndex! + 1)%maxExercises!
         currentExercise = exercises[currentExerciseIndex!]
+        print(currentExercise?.name)
         setupPlayerWithUrl(currentExercise?.tutorialUrl!)
-        print("reg")
+        
+    }
+    
+    @objc func handleMute(){
+        if isPlayerMuted!{
+            player.isMuted = false
+            isPlayerMuted = !isPlayerMuted!
+        }else{
+            player.isMuted = true
+            isPlayerMuted = !isPlayerMuted!
+        }
     }
     
     fileprivate func setupPlayerWithUrl(_ urlString: String!){
@@ -246,6 +306,8 @@ class ViewController: UIViewController {
             playerLayer = AVPlayerLayer(player: player)
             playerLayer.videoGravity = .resize
             VideoPlayerView.layer.addSublayer(playerLayer)
+            playerLayer.frame = VideoPlayerView.bounds
+            //viewDidLayoutSubviews()
             //playerLayer.frame = VideoPlayerView.frame
             player.play()
         }

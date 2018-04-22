@@ -17,6 +17,7 @@
 		F121CAA4208B987D004C9FC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F121CAA3208B987D004C9FC4 /* GoogleService-Info.plist */; };
 		F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA5208BA666004C9FC4 /* Exercise.swift */; };
 		F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */; };
+		F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		F121CAA3208B987D004C9FC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F121CAA5208BA666004C9FC4 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformedExercise.swift; sourceTree = "<group>"; };
+		F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepCountViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				F121CA95208B95B8004C9FC4 /* iosdApp.xcdatamodeld */,
 				F121CAA5208BA666004C9FC4 /* Exercise.swift */,
 				F121CAA7208BA7EB004C9FC4 /* PerformedExercise.swift */,
+				F121CAA9208C4AFA004C9FC4 /* RepCountViewController.swift */,
 			);
 			path = iosdApp;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */,
 				F121CA97208B95B8004C9FC4 /* iosdApp.xcdatamodeld in Sources */,
 				F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */,
 				F121CAA6208BA666004C9FC4 /* Exercise.swift in Sources */,

@@ -37,6 +37,7 @@ class RepCountViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print(appDelegate.currentWorkout.exercises?.count)
+        self.navigationController?.isNavigationBarHidden = false
     }
 
     override func viewDidLoad() {

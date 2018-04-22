@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     var currentExerciseIndex: Int?
     var maxExercises: Int?
     var isPlayerMuted: Bool?
+    var time: CMTime?
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -89,6 +90,19 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let doneButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.setTitle("Done", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 6
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
+        return button
+    }()
+    
     let muteButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
@@ -129,6 +143,11 @@ class ViewController: UIViewController {
         
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -158,6 +177,7 @@ class ViewController: UIViewController {
         view.addSubview(loginRegisterButton)
         view.addSubview(controlView)
         view.addSubview(muteButton)
+        view.addSubview(doneButton)
         view.addGestureRecognizer(tapped)
         view.isUserInteractionEnabled = true
         
@@ -175,9 +195,14 @@ class ViewController: UIViewController {
         
         loginRegisterButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
         //loginRegisterButton.bottomAnchor.constraint(equalTo: VideoPlayerView.topAnchor, constant: -12).isActive = true
-        loginRegisterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 170).isActive = true
+        loginRegisterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        doneButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
+        doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
+        doneButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         controlView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         controlView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -243,10 +268,9 @@ class ViewController: UIViewController {
         
         print("reg")
         player.pause()
-        playerLayer.removeFromSuperlayer()
-        playerLayer = nil
-        player = nil
-        
+        time = CMTimeMake(0, 10)
+        player.seek(to: time!)
+        player.pause()
         let countViewController = RepCountViewController()
         countViewController.currentExercise = currentExercise!
         self.navigationController?.pushViewController(countViewController, animated: true)
@@ -285,6 +309,10 @@ class ViewController: UIViewController {
         print("reg")
     }
     
+    @objc func handleDone(){
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func handleNext(){
         player.pause()
         playerLayer.removeFromSuperlayer()
@@ -304,9 +332,11 @@ class ViewController: UIViewController {
     @objc func handleMute(){
         if isPlayerMuted!{
             player.isMuted = false
+            muteButton.setTitle("Mute", for: .normal)
             isPlayerMuted = !isPlayerMuted!
         }else{
             player.isMuted = true
+            muteButton.setTitle("Unmute", for: .normal)
             isPlayerMuted = !isPlayerMuted!
         }
     }
@@ -327,7 +357,17 @@ class ViewController: UIViewController {
         
     }
     @objc func handleYes(action: UIAlertAction){
+        player.pause()
+        playerLayer.removeFromSuperlayer()
+        playerLayer = nil
+        player = nil
+        
+        //dismiss(animated: true, completion: nil)
+        let saveViewController = LogWorkoutViewController()
+        present(saveViewController, animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
         print("Handle yes")
+        
     }
     
     

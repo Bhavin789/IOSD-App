@@ -13,11 +13,13 @@ class Workout: NSObject{
     var exercises: [PerformedExercise]?
     var name: String?
     var comments: String?
+    var totalReps: Int?
     
     override init() {
         self.workoutNumber = 1
         self.exercises = []
         self.name = "workout"
         self.comments = ""
+        self.totalReps = 0
     }
 }

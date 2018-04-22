@@ -12,7 +12,7 @@ class MainViewController: UIViewController {
     
     let workoutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         button.setTitle("Start Workout", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
     
     let savedWorkoutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         button.setTitle("Saved Workouts", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false

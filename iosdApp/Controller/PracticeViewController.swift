@@ -125,6 +125,19 @@ class PracticeViewController: UIViewController{
         return lbl
     }()
     
+    let doneButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.setTitle("Done", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 6
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -142,6 +155,7 @@ class PracticeViewController: UIViewController{
         view.addSubview(muteButton)
         view.addGestureRecognizer(tapped)
         view.addSubview(repCountLabel)
+        view.addSubview(doneButton)
         view.isUserInteractionEnabled = true
         
         controlView.addSubview(playButton)
@@ -197,9 +211,14 @@ class PracticeViewController: UIViewController{
         repCountLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
         repCountLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
+        doneButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
+        doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
+        doneButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
         print("current rep count \(currentRepCount!)")
         
-        repCountLabel.text = "\(countDone!)/\(currentRepCount!)"
+        repCountLabel.text = "\(countDone!)/\(currentRepCount!) REPS"
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -227,9 +246,11 @@ class PracticeViewController: UIViewController{
     }
     
     @objc func handlePrevious(){
-
-        
         print("reg")
+    }
+    
+    @objc func handleDone(){
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func handlePlay(){
@@ -239,6 +260,7 @@ class PracticeViewController: UIViewController{
     
     @objc func handleStop(){
         player.pause()
+        showAlertForStop("Do you want to finish this workout?")
         print("reg")
     }
     
@@ -289,7 +311,7 @@ class PracticeViewController: UIViewController{
     @objc func handleRepeat(note: NSNotification){
         print("fired")
         countDone = countDone! + 1
-        repCountLabel.text = "\(countDone!)/\(currentRepCount!)"
+        repCountLabel.text = "\(countDone!)/\(currentRepCount!) REPS"
         if(countDone == currentRepCount){
             playerLayer.removeFromSuperlayer()
             playerLayer = nil
@@ -304,10 +326,31 @@ class PracticeViewController: UIViewController{
         }
     }
     
+    @objc func handleYes(action: UIAlertAction){
+        player.pause()
+        playerLayer.removeFromSuperlayer()
+        playerLayer = nil
+        player = nil
+        
+        //dismiss(animated: true, completion: nil)
+        let saveViewController = LogWorkoutViewController()
+        present(saveViewController, animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
+        print("Handle yes")
+    }
+    
     func showAlert(_ msg: String){
         let alert = UIAlertController(title: "Workout", message: msg, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Perform", style: .default, handler: handlePerform))
         alert.addAction(UIAlertAction(title: "Save Workout", style: .default, handler: handleSaveWorkout))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showAlertForStop(_ msg: String){
+        let alert = UIAlertController(title: "Workout", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: handleYes))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }

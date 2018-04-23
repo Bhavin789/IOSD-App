@@ -50,6 +50,13 @@ class MainViewController: UIViewController {
     }
 
     override func viewDidLoad() {
+        if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+            
+            //UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
+        }else{
+            UserDefaults.standard.set(false, forKey: "isMute")
+        }
+        
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(workoutButton)

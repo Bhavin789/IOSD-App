@@ -79,7 +79,7 @@ class PracticeViewController: UIViewController{
     let muteButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
-        button.setTitle("mute", for: .normal)
+        button.setTitle("", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 6
@@ -143,6 +143,20 @@ class PracticeViewController: UIViewController{
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+            if mute{
+                
+                muteButton.setTitle("Unmute", for: .normal)
+            }else{
+                muteButton.setTitle("Mute", for: .normal)
+            }
+        }else{
+            UserDefaults.standard.set(false, forKey: "isMute")
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -271,14 +285,18 @@ class PracticeViewController: UIViewController{
     }
     
     @objc func handleMute(){
-        if isPlayerMuted!{
-            player.isMuted = false
-            muteButton.setTitle("Mute", for: .normal)
-            isPlayerMuted = !isPlayerMuted!
+        if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+            if mute{
+                player.isMuted = false
+                muteButton.setTitle("Mute", for: .normal)
+                UserDefaults.standard.set(false, forKey: "isMute")
+            }else{
+                player.isMuted = true
+                muteButton.setTitle("Unmute", for: .normal)
+                UserDefaults.standard.set(true, forKey: "isMute")
+            }
         }else{
-            player.isMuted = true
-            muteButton.setTitle("Unmute", for: .normal)
-            isPlayerMuted = !isPlayerMuted!
+            UserDefaults.standard.set(false, forKey: "isMute")
         }
     }
     
@@ -291,6 +309,17 @@ class PracticeViewController: UIViewController{
             playerLayer.frame = VideoPlayerView.bounds
             //viewDidLayoutSubviews()
             //playerLayer.frame = VideoPlayerView.frame
+            if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+                if mute{
+                    player.isMuted = true
+                    muteButton.setTitle("Unmute", for: .normal)
+                }else{
+                    player.isMuted = false
+                    muteButton.setTitle("Mute", for: .normal)
+                }
+            }else{
+                UserDefaults.standard.set(false, forKey: "isMute")
+            }
             player.play()
         }
         
@@ -347,11 +376,6 @@ class PracticeViewController: UIViewController{
             let saveViewController = LogWorkoutViewController()
             self.navigationController?.pushViewController(saveViewController, animated: true)
         }
-        
-        //let saveViewController = LogWorkoutViewController()
-        //self.navigationController?.pushViewController(saveViewController, animated: true)
-        //present(saveViewController, animated: true, completion: nil)
-        //dismiss(animated: true, completion: nil)
         print("Handle yes")
     }
     

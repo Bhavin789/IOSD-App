@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var flag: Int?
     var exercises = [Exercise]()
-    var player : AVPlayer!
+    var player : AVPlayer?
     var playerLayer: AVPlayerLayer!
     
     var currentExercise: Exercise?
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     var time: CMTime?
     //var workout: Workout?
     
-    let loginRegisterButton: UIButton = {
+    let skipButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
         button.setTitle("Skip", for: .normal)
@@ -33,9 +33,8 @@ class ViewController: UIViewController {
         button.layer.cornerRadius = 6
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.restorationIdentifier="loginbutton"
         
-        button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleSkip), for: .touchUpInside)
         return button
     }()
     
@@ -94,7 +93,7 @@ class ViewController: UIViewController {
     let muteButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
-        button.setTitle("mute", for: .normal)
+        button.setTitle("", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 6
@@ -145,6 +144,22 @@ class ViewController: UIViewController {
         print("exercises from view will appear view controller \(appDelegate.currentWorkout.exercises?.count)")
         print("workout count from view will appear view controller \(appDelegate.workouts.count)")
         self.navigationController?.isNavigationBarHidden = true
+        
+        if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+            if mute{
+                muteButton.setTitle("Unmute", for: .normal)
+                if let vidPlayer = player{
+                    vidPlayer.isMuted = true
+                }
+            }else{
+                if let vidPlayer = player{
+                    vidPlayer.isMuted = false
+                }
+                muteButton.setTitle("Mute", for: .normal)
+            }
+        }else{
+            UserDefaults.standard.set(false, forKey: "isMute")
+        }
     }
     
     override func viewDidLoad() {
@@ -168,7 +183,7 @@ class ViewController: UIViewController {
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         let videoPlayerFrame = CGRect(x: 0, y: 120, width: view.frame.width, height: view.frame.height - 320)
         
-        view.addSubview(loginRegisterButton)
+        view.addSubview(skipButton)
         view.addSubview(controlView)
         view.addSubview(muteButton)
         view.addSubview(nameLabel)
@@ -186,12 +201,32 @@ class ViewController: UIViewController {
         print("HI there")
         setupPlayerWithUrl(currentExercise?.tutorialUrl!)
         
+        setupViews()
         
-        loginRegisterButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-        //loginRegisterButton.bottomAnchor.constraint(equalTo: VideoPlayerView.topAnchor, constant: -12).isActive = true
-        loginRegisterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
-        loginRegisterButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
-        loginRegisterButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        // Do any additional setup after loading the view, typically from a nib.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //playerLayer.frame = VideoPlayerView.bounds
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer){
+        player?.pause()
+        controlView.isHidden = false
+    }
+    
+    fileprivate func setupViews(){
+        
+        skipButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        skipButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
+        skipButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
+        skipButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         controlView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         controlView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -229,31 +264,15 @@ class ViewController: UIViewController {
         nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
         nameLabel.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        //playerLayer.frame = VideoPlayerView.bounds
-    }
-    
-    @objc func handleTap(_ sender: UITapGestureRecognizer){
-        player.pause()
-        controlView.isHidden = false
-    }
-    
-    @objc func handleLoginRegister(){
+    @objc func handleSkip(){
         
         print("reg")
-        player.pause()
+        player?.pause()
         time = CMTimeMake(0, 10)
-        player.seek(to: time!)
-        player.pause()
+        player?.seek(to: time!)
+        player?.pause()
         let countViewController = RepCountViewController()
         countViewController.currentExercise = currentExercise!
         self.navigationController?.pushViewController(countViewController, animated: true)
@@ -283,31 +302,36 @@ class ViewController: UIViewController {
     }
     
     @objc func handlePlay(){
-        player.play()
+        player?.play()
         controlView.isHidden = true
         print("reg")
     }
     
     @objc func handleStop(){
-        player.pause()
+        player?.pause()
         showAlertForStop("Do you want to finish this workout?")
         print("reg")
     }
     
     @objc func handleNext(){
-        player.pause()
+        player?.pause()
         showAlertForNext("Do you want to skip this video? Your workout would not be complete without if you skip this video")
     }
     
     @objc func handleMute(){
-        if isPlayerMuted!{
-            player.isMuted = false
-            muteButton.setTitle("Mute", for: .normal)
-            isPlayerMuted = !isPlayerMuted!
+        
+        if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+            if mute{
+                player?.isMuted = false
+                muteButton.setTitle("Mute", for: .normal)
+                UserDefaults.standard.set(false, forKey: "isMute")
+            }else{
+                player?.isMuted = true
+                muteButton.setTitle("Unmute", for: .normal)
+                UserDefaults.standard.set(true, forKey: "isMute")
+            }
         }else{
-            player.isMuted = true
-            muteButton.setTitle("Unmute", for: .normal)
-            isPlayerMuted = !isPlayerMuted!
+            UserDefaults.standard.set(false, forKey: "isMute")
         }
     }
     
@@ -322,12 +346,25 @@ class ViewController: UIViewController {
             playerLayer.frame = VideoPlayerView.bounds
             //viewDidLayoutSubviews()
             //playerLayer.frame = VideoPlayerView.frame
-            player.play()
+            
+            if let mute = UserDefaults.standard.value(forKey: "isMute") as? Bool{
+                if mute{
+                    player?.isMuted = true
+                    muteButton.setTitle("Unmute", for: .normal)
+                }else{
+                    player?.isMuted = false
+                    muteButton.setTitle("Mute", for: .normal)
+                }
+            }else{
+                UserDefaults.standard.set(false, forKey: "isMute")
+            }
+            
+            player?.play()
         }
         
     }
     @objc func handleYes(action: UIAlertAction){
-        player.pause()
+        player?.pause()
         //dismiss(animated: true, completion: nil)
         playerLayer.removeFromSuperlayer()
         playerLayer = nil
@@ -342,7 +379,7 @@ class ViewController: UIViewController {
     
     @objc func handleNextPlay(action: UIAlertAction){
         
-        player.pause()
+        player?.pause()
         playerLayer.removeFromSuperlayer()
         playerLayer = nil
         player = nil

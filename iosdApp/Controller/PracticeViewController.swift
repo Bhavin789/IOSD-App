@@ -26,7 +26,7 @@ class PracticeViewController: UIViewController{
     
     let prevButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 0)
         button.setTitle("prev", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class PracticeViewController: UIViewController{
     
     let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 0)
         button.setTitle("next", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ class PracticeViewController: UIViewController{
     
     let playButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 0)
         button.setTitle("play", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +65,7 @@ class PracticeViewController: UIViewController{
     
     let stopButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 0)
         button.setTitle("stop", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -78,7 +78,7 @@ class PracticeViewController: UIViewController{
     
     let muteButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1)
         button.setTitle("", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +100,7 @@ class PracticeViewController: UIViewController{
     
     let controlView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.masksToBounds = true
         return view
@@ -120,7 +120,9 @@ class PracticeViewController: UIViewController{
         let lbl = UILabel()
         lbl.text = ""
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        lbl.textColor = UIColor.black
+        lbl.textColor = UIColor.white
+        lbl.textAlignment = .center
+        lbl.backgroundColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -129,7 +131,9 @@ class PracticeViewController: UIViewController{
         let lbl = UILabel()
         lbl.text = "Set 1/12 rep"
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        lbl.textColor = UIColor.black
+        lbl.textColor = UIColor.white
+        lbl.textAlignment = .center
+        lbl.backgroundColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -139,7 +143,9 @@ class PracticeViewController: UIViewController{
         lbl.text = "0:00"
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         lbl.textAlignment = .right
-        lbl.textColor = UIColor.black
+        lbl.textColor = UIColor.white
+        lbl.textAlignment = .center
+        lbl.backgroundColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -170,7 +176,7 @@ class PracticeViewController: UIViewController{
         
         view.addSubview(VideoPlayerView)
         let tapped = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        let videoPlayerFrame = CGRect(x: 0, y: 120, width: view.frame.width, height: view.frame.height - 320)
+        let videoPlayerFrame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         view.addSubview(controlView)
         view.addSubview(muteButton)
         view.addGestureRecognizer(tapped)
@@ -222,7 +228,7 @@ class PracticeViewController: UIViewController{
         nextButton.bottomAnchor.constraint(equalTo: controlView.bottomAnchor, constant: -8).isActive = true
         
         //muteButton.topAnchor.constraint(equalTo: VideoPlayerView.bottomAnchor, constant: 10).isActive = true
-        muteButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
+        muteButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
         muteButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
         muteButton.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
         muteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true

@@ -41,26 +41,25 @@ class WorkoutHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return appDelegate.workouts.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = appDelegate.currentWorkout.name!
+        cell.textLabel?.text = appDelegate.workouts[indexPath.row].name!
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = WorkoutLogOfExercisesViewController()
-        vc.count = appDelegate.currentWorkout.exercises?.count
-        vc.totalReps = appDelegate.currentWorkout.totalReps
-        vc.comment = appDelegate.currentWorkout.comments!
+        vc.count = appDelegate.workouts[indexPath.row].exercises?.count
+        vc.totalReps = appDelegate.workouts[indexPath.row].totalReps!
+        vc.comment = appDelegate.workouts[indexPath.row].comments!
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func handleDone(){
-        appDelegate.currentWorkout.exercises = []
         self.dismiss(animated: true, completion: nil)
     }
 

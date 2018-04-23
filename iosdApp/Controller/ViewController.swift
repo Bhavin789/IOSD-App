@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var maxExercises: Int?
     var isPlayerMuted: Bool?
     var time: CMTime?
+    //var workout: Workout?
     
     let loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
@@ -141,6 +142,8 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("exercises from view will appear view controller \(appDelegate.currentWorkout.exercises?.count)")
+        print("workout count from view will appear view controller \(appDelegate.workouts.count)")
         self.navigationController?.isNavigationBarHidden = true
     }
     
@@ -148,19 +151,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         print("called view did load")
-        
         view.backgroundColor = UIColor.white
         exercises.append(appDelegate.ex1)
         exercises.append(appDelegate.ex2)
         
         self.navigationController?.isNavigationBarHidden = true
-        
-        if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
-            UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
-        }else{
-            UserDefaults.standard.set(1, forKey: "currentWorkoutNumber")
-        }
-        
+        //workout = Workout()
         flag = 0
         isPlayerMuted = false
         maxExercises = exercises.count

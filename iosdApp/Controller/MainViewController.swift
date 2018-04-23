@@ -37,6 +37,17 @@ class MainViewController: UIViewController {
         button.addTarget(self, action: #selector(handleShowSaved), for: .touchUpInside)
         return button
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
+            print("Current work num is from viewwill\(currentWorkNum)")
+            //UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
+        }
+        
+        print("exercises from view will appear main view controller \(appDelegate.workouts.count)")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +55,15 @@ class MainViewController: UIViewController {
         view.addSubview(workoutButton)
         view.addSubview(savedWorkoutButton)
         
+        UserDefaults.standard.set(-1, forKey: "currentWorkoutNumber")
+        
         print("current work count \(appDelegate.currentWorkout.exercises?.count)")
+        if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
+            print("Current work num is \(currentWorkNum)")
+            //UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
+        }else{
+           // UserDefaults.standard.set(1, forKey: "currentWorkoutNumber")
+        }
 
         workoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
         workoutButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
@@ -67,7 +86,7 @@ class MainViewController: UIViewController {
     
     @objc func handleShowSaved(){
         print("showing saved")
-        if(appDelegate.currentWorkout.exercises?.count == 0){
+        if(appDelegate.workouts.count == 0){
             let vc = NoSavedWorkoutViewController()
             present(vc, animated: true, completion: nil)
         }else{

@@ -11,7 +11,6 @@ import UIKit
 class LogWorkoutViewController: UIViewController, UITextFieldDelegate {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "ENTER WORKOUT NAME"
@@ -85,6 +84,12 @@ class LogWorkoutViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         
+        if let currentWorkNum = UserDefaults.standard.value(forKey: "currentWorkoutNumber") as? Int{
+            UserDefaults.standard.set(currentWorkNum + 1, forKey: "currentWorkoutNumber")
+        }else{
+            UserDefaults.standard.set(1, forKey: "currentWorkoutNumber")
+        }
+        
         view.backgroundColor = .white
         view.addSubview(nameLabel)
         view.addSubview(repsLabel)
@@ -139,16 +144,32 @@ class LogWorkoutViewController: UIViewController, UITextFieldDelegate {
     @objc func handleSave(){
         
         if let name = nameTextField.text{
-            appDelegate.currentWorkout.name = name
+            appDelegate.currentWorkout.name =  name
+            //currentWorkout?.name = name
         }
         
         if let count = repsTextField.text{
             appDelegate.currentWorkout.totalReps = Int(count)
+            //currentWorkout?.totalReps = Int(count)
         }
         
         if let comment = commentTextField.text{
+            //currentWorkout?.comments = comment
             appDelegate.currentWorkout.comments = comment
         }
+        
+        print(appDelegate.currentWorkout.name)
+        
+        var newWorkout = Workout()
+        newWorkout.name = appDelegate.currentWorkout.name!
+        newWorkout.totalReps = appDelegate.currentWorkout.totalReps!
+        newWorkout.comments = appDelegate.currentWorkout.comments!
+        newWorkout.exercises = appDelegate.currentWorkout.exercises!
+        appDelegate.workouts.append(newWorkout)
+        appDelegate.currentWorkout.exercises = []
+        appDelegate.currentWorkout.name = "workout"
+        appDelegate.currentWorkout.totalReps = 0
+        appDelegate.currentWorkout.comments = ""
         self.dismiss(animated: true, completion: nil)
     }
     

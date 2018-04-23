@@ -142,7 +142,6 @@ class WorkoutLogOfExercisesViewController: UIViewController {
     }
     
     @objc func handleDone(){
-        appDelegate.currentWorkout.exercises = []
         self.dismiss(animated: true, completion: nil)
     }
 

@@ -72,7 +72,8 @@ class MainViewController: UIViewController {
             present(vc, animated: true, completion: nil)
         }else{
             let vc = WorkoutHistoryTableViewController()
-            present(vc, animated: true, completion: nil)
+            let navBarController = UINavigationController(rootViewController: vc)
+            present(navBarController, animated: true, completion: nil)
         }
     }
 

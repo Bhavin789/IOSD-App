@@ -16,6 +16,8 @@ class WorkoutHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = "WORKOUTS"
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "DONE", style: .plain, target: self, action: #selector(handleDone))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
 
         // Uncomment the following line to preserve selection between presentations
@@ -47,6 +49,19 @@ class WorkoutHistoryTableViewController: UITableViewController {
         cell.textLabel?.text = appDelegate.currentWorkout.name!
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = WorkoutLogOfExercisesViewController()
+        vc.count = appDelegate.currentWorkout.exercises?.count
+        vc.totalReps = appDelegate.currentWorkout.totalReps
+        vc.comment = appDelegate.currentWorkout.comments!
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func handleDone(){
+        appDelegate.currentWorkout.exercises = []
+        self.dismiss(animated: true, completion: nil)
     }
 
     /*

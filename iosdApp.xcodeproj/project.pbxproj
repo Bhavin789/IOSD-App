@@ -24,6 +24,8 @@
 		F121CAB5208C9A5D004C9FC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */; };
 		F121CAB7208C9E31004C9FC4 /* LogWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */; };
 		F121CAB9208D5301004C9FC4 /* NoSavedWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CAB8208D5301004C9FC4 /* NoSavedWorkoutViewController.swift */; };
+		F121CABB208D549A004C9FC4 /* WorkoutHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CABA208D549A004C9FC4 /* WorkoutHistoryTableViewController.swift */; };
+		F121CABD208D5C34004C9FC4 /* WorkoutLogOfExercisesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F121CABC208D5C34004C9FC4 /* WorkoutLogOfExercisesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogWorkoutViewController.swift; sourceTree = "<group>"; };
 		F121CAB8208D5301004C9FC4 /* NoSavedWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSavedWorkoutViewController.swift; sourceTree = "<group>"; };
+		F121CABA208D549A004C9FC4 /* WorkoutHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistoryTableViewController.swift; sourceTree = "<group>"; };
+		F121CABC208D5C34004C9FC4 /* WorkoutLogOfExercisesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutLogOfExercisesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,8 @@
 				F121CAB4208C9A5D004C9FC4 /* MainViewController.swift */,
 				F121CAB6208C9E31004C9FC4 /* LogWorkoutViewController.swift */,
 				F121CAB8208D5301004C9FC4 /* NoSavedWorkoutViewController.swift */,
+				F121CABA208D549A004C9FC4 /* WorkoutHistoryTableViewController.swift */,
+				F121CABC208D5C34004C9FC4 /* WorkoutLogOfExercisesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 			files = (
 				F121CAAA208C4AFA004C9FC4 /* RepCountViewController.swift in Sources */,
 				F121CAB7208C9E31004C9FC4 /* LogWorkoutViewController.swift in Sources */,
+				F121CABD208D5C34004C9FC4 /* WorkoutLogOfExercisesViewController.swift in Sources */,
 				F121CA97208B95B8004C9FC4 /* iosdApp.xcdatamodeld in Sources */,
 				F121CAA8208BA7EB004C9FC4 /* PerformedExercise.swift in Sources */,
 				F121CAAE208C62AA004C9FC4 /* Workout.swift in Sources */,
@@ -285,6 +292,7 @@
 				F121CA91208B95B7004C9FC4 /* ViewController.swift in Sources */,
 				F121CA8F208B95B7004C9FC4 /* AppDelegate.swift in Sources */,
 				F121CAB5208C9A5D004C9FC4 /* MainViewController.swift in Sources */,
+				F121CABB208D549A004C9FC4 /* WorkoutHistoryTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

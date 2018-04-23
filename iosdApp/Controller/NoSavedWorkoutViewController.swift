@@ -14,6 +14,7 @@ class NoSavedWorkoutViewController: UIViewController {
         let lbl = UILabel()
         lbl.text = "No Saved Workout"
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        lbl.textAlignment = .center
         lbl.textColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl

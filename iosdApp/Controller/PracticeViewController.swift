@@ -120,7 +120,26 @@ class PracticeViewController: UIViewController{
         let lbl = UILabel()
         lbl.text = ""
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        lbl.textColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
+        lbl.textColor = UIColor.black
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    let strengthLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Set 1/12 rep"
+        lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        lbl.textColor = UIColor.black
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    
+    let timerLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "0:00"
+        lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        lbl.textAlignment = .right
+        lbl.textColor = UIColor.black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -156,6 +175,8 @@ class PracticeViewController: UIViewController{
         view.addGestureRecognizer(tapped)
         view.addSubview(repCountLabel)
         view.addSubview(doneButton)
+        view.addSubview(strengthLabel)
+        view.addSubview(timerLabel)
         view.isUserInteractionEnabled = true
         
         controlView.addSubview(playButton)
@@ -215,6 +236,16 @@ class PracticeViewController: UIViewController{
         doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
         doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
         doneButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        
+        strengthLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        strengthLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -150).isActive = true
+        strengthLabel.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
+        strengthLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        timerLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+        timerLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
+        timerLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
+        timerLabel.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         print("current rep count \(currentRepCount!)")
         
@@ -298,6 +329,13 @@ class PracticeViewController: UIViewController{
     }
     
     @objc func handleSaveWorkout(action: UIAlertAction){
+        let vc = ExerciseLogViewController()
+        vc.name = currentExercise?.name!
+        vc.count = countDone!
+        present(vc, animated: true) {
+            let saveViewController = LogWorkoutViewController()
+            self.navigationController?.pushViewController(saveViewController, animated: true)
+        }
         print("save")
     }
     
@@ -325,8 +363,16 @@ class PracticeViewController: UIViewController{
         playerLayer = nil
         player = nil
         //dismiss(animated: true, completion: nil)
-        let saveViewController = LogWorkoutViewController()
-        self.navigationController?.pushViewController(saveViewController, animated: true)
+        let vc = ExerciseLogViewController()
+        vc.name = currentExercise?.name!
+        vc.count = countDone!
+        present(vc, animated: true) {
+            let saveViewController = LogWorkoutViewController()
+            self.navigationController?.pushViewController(saveViewController, animated: true)
+        }
+        
+        //let saveViewController = LogWorkoutViewController()
+        //self.navigationController?.pushViewController(saveViewController, animated: true)
         //present(saveViewController, animated: true, completion: nil)
         //dismiss(animated: true, completion: nil)
         print("Handle yes")

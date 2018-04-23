@@ -41,8 +41,8 @@ class ExerciseLogViewController: UIViewController {
         view.addSubview(saveLabel)
         view.addSubview(repCountLabel)
         
-        saveLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        saveLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        saveLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
+        saveLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -8).isActive = true
         saveLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -350).isActive = true
         saveLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
         

@@ -147,7 +147,7 @@ class ViewController: UIViewController {
         let lbl = UILabel()
         lbl.text = ""
         lbl.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        lbl.textColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
+        lbl.textColor = UIColor.black
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }()
@@ -250,7 +250,7 @@ class ViewController: UIViewController {
         
         nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
-        nameLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8).isActive = true
+        nameLabel.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
         nameLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
         // Do any additional setup after loading the view, typically from a nib.
     }

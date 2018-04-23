@@ -10,6 +10,8 @@ import UIKit
 
 class MainViewController: UIViewController {
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     let workoutButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 255/255, green: 102/255, blue: 102/255, alpha: 1)
@@ -41,6 +43,8 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(workoutButton)
         view.addSubview(savedWorkoutButton)
+        
+        print("current work count \(appDelegate.currentWorkout.exercises?.count)")
 
         workoutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
         workoutButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 60).isActive = true
@@ -63,6 +67,13 @@ class MainViewController: UIViewController {
     
     @objc func handleShowSaved(){
         print("showing saved")
+        if(appDelegate.currentWorkout.exercises?.count == 0){
+            let vc = NoSavedWorkoutViewController()
+            present(vc, animated: true, completion: nil)
+        }else{
+            let vc = WorkoutHistoryTableViewController()
+            present(vc, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

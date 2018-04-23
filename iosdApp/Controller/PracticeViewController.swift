@@ -144,19 +144,6 @@ class PracticeViewController: UIViewController{
         return lbl
     }()
     
-    let doneButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 6
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        return button
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -174,7 +161,6 @@ class PracticeViewController: UIViewController{
         view.addSubview(muteButton)
         view.addGestureRecognizer(tapped)
         view.addSubview(repCountLabel)
-        view.addSubview(doneButton)
         view.addSubview(strengthLabel)
         view.addSubview(timerLabel)
         view.isUserInteractionEnabled = true
@@ -232,11 +218,6 @@ class PracticeViewController: UIViewController{
         repCountLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
         repCountLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        doneButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-        doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
-        doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
-        doneButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        
         strengthLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 8).isActive = true
         strengthLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -150).isActive = true
         strengthLabel.bottomAnchor.constraint(equalTo: controlView.topAnchor, constant: -8).isActive = true
@@ -270,10 +251,6 @@ class PracticeViewController: UIViewController{
     
     @objc func handlePrevious(){
         print("reg")
-    }
-    
-    @objc func handleDone(){
-        dismiss(animated: true, completion: nil)
     }
     
     @objc func handlePlay(){
@@ -352,7 +329,7 @@ class PracticeViewController: UIViewController{
         }else{
             time = CMTimeMake(0, 10)
             player.seek(to: time!)
-            repCountLabel.text = "\(countDone!)/\(currentRepCount!)"
+            repCountLabel.text = "\(countDone!)/\(currentRepCount!) REPS"
             player.play()
         }
     }

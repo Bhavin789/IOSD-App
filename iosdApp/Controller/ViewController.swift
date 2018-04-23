@@ -90,19 +90,6 @@ class ViewController: UIViewController {
         return button
     }()
     
-    let doneButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
-        button.setTitle("Done", for: .normal)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.layer.cornerRadius = 6
-        button.layer.masksToBounds = true
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
-        return button
-    }()
-    
     let muteButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(red: 58/255, green: 128/255, blue: 188/255, alpha: 1)
@@ -188,7 +175,6 @@ class ViewController: UIViewController {
         view.addSubview(loginRegisterButton)
         view.addSubview(controlView)
         view.addSubview(muteButton)
-        view.addSubview(doneButton)
         view.addSubview(nameLabel)
         view.addGestureRecognizer(tapped)
         view.isUserInteractionEnabled = true
@@ -202,7 +188,7 @@ class ViewController: UIViewController {
         
         VideoPlayerView.frame = videoPlayerFrame
         print("HI there")
-        setupPlayerWithUrl(currentExercise?.repUrl!)
+        setupPlayerWithUrl(currentExercise?.tutorialUrl!)
         
         
         loginRegisterButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
@@ -210,11 +196,6 @@ class ViewController: UIViewController {
         loginRegisterButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 200).isActive = true
         loginRegisterButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
         loginRegisterButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        
-        doneButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-        doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
-        doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -200).isActive = true
-        doneButton.heightAnchor.constraint(equalToConstant: 45).isActive = true
         
         controlView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
         controlView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -315,10 +296,6 @@ class ViewController: UIViewController {
         player.pause()
         showAlertForStop("Do you want to finish this workout?")
         print("reg")
-    }
-    
-    @objc func handleDone(){
-        dismiss(animated: true, completion: nil)
     }
     
     @objc func handleNext(){

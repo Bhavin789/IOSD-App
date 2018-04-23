@@ -15,9 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let ex1 = Exercise(name: "SQUAT1", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback.mp4?alt=media&token=aa5fea98-fc59-4dc7-b2cc-0a1e6a4c480b", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1")
+    let ex1 = Exercise(name: "SQUAT1", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback.mp4?alt=media&token=aa5fea98-fc59-4dc7-b2cc-0a1e6a4c480b", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/rep1vid.mp4?alt=media&token=908646a8-7c83-4514-96bb-c9d0ee9de794")
     
-    let ex2 = Exercise(name: "SQUAT2", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1")
+    let ex2 = Exercise(name: "SQUAT2", tutorialUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/videoplayback2.mp4?alt=media&token=3c039691-936c-4886-8cc2-8f4a6c3b72c1", repUrl: "https://firebasestorage.googleapis.com/v0/b/iosdapp-8dd28.appspot.com/o/repvid2.mp4?alt=media&token=fb5bdf88-a173-4dfd-803e-48f0c76631e0")
     
     let currentWorkout = Workout()
     

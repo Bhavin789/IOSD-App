@@ -13,10 +13,12 @@ class Exercise: NSObject {
     var name: String?
     var tutorialUrl: String?
     var repUrl: String?
+    var category: String?
     
     init(name: String!, tutorialUrl: String!,repUrl: String!) {
         self.name = name
         self.tutorialUrl = tutorialUrl
         self.repUrl = repUrl
+        self.category = "strength"
     }
 }
